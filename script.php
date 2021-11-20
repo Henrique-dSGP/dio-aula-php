@@ -18,28 +18,44 @@
     }
   }
   $competidor = new Competidor();
+
+  verificaCampos()
   $competidor->__set('nome', $_POST['nome']);
   $competidor->__set('idade', $_POST['idade']);
 
+  verificaCampos($competidor);
+
   calculaIdade($competidor, $categorias);
 
-  function calculaIdade($entidade, $categorias){
-    if($entidade->__get('idade') >= 6 && $entidade->__get('idade') <=12){
+  function verificaCampos($objeto){
+    if(strlen($objeto->__get('nome')) <3){
+      //dodangermsg
+    }
+    if(strlen($objeto->__get('nome'))>30){
+      //dodangermsg
+    }
+    if(!is_numeric($objeto->__get('idade'))){
+      //dodangermsg
+    }
+  }
+
+  function calculaIdade($objeto, $categorias){
+    if($objeto->__get('idade') >= 6 && $objeto->__get('idade') <=12){
       for($i = 0; $i < count($categorias); $i++){
         if($categorias[$i] == 'infantil')
-          print_r("O nadador ".$entidade->__get('nome'). " compete na categoria ".$categorias[$i]." por possuir ".$entidade->__get('idade')." anos.");
+          print_r("O nadador ".$objeto->__get('nome'). " compete na categoria ".$categorias[$i]." por possuir ".$objeto->__get('idade')." anos.");
       }
     }
-    else if($entidade->__get('idade') >= 13 && $entidade->__get('idade') <=18){
+    else if($objeto->__get('idade') >= 13 && $objeto->__get('idade') <=18){
       for($i = 0; $i < count($categorias); $i++){
         if($categorias[$i] == 'adolescente')
-          echo "O nadador ".$entidade->__get('nome'). " compete na categoria ".$categorias[$i]." por possuir ".$entidade->__get('idade')." anos.";
+          echo "O nadador ".$objeto->__get('nome'). " compete na categoria ".$categorias[$i]." por possuir ".$objeto->__get('idade')." anos.";
       }
     }
     else {
       for($i = 0; $i < count($categorias); $i++){
         if($categorias[$i] == 'adulto')
-          echo "O nadador ".$entidade->__get('nome'). " compete na categoria ".$categorias[$i]." por possuir ".$entidade->__get('idade')." anos.";
+          echo "O nadador ".$objeto->__get('nome'). " compete na categoria ".$categorias[$i]." por possuir ".$objeto->__get('idade')." anos.";
       }
     }
   }
